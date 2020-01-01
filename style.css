@@ -1,0 +1,89 @@
+body {
+    color: white;
+    font-family: 'Quicksand', sans-serif;
+    background: #3598DB
+}
+.container {
+    align-items: center;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+.box2 {
+    display: grid;
+    grid-column-start: 2;
+    grid-row-start: 3;
+}
+.display {
+    user-select: none;
+    color: black;
+    display: grid;
+    grid-template-columns: 1;
+    grid-template-rows: 3;
+    background: white;
+}
+.button-inside {
+    grid-row-start: 2;
+}
+.mode {
+    padding: 0.5em;
+}
+.del {
+    font-size: 0.8em;
+}
+.buttons {
+    user-select: none;
+    font-size: 2em;
+    text-align: center;
+    display: grid;
+    background: rgb(51, 51, 51);
+    grid-template-columns: repeat(1, 1fr 1fr 1fr 1fr);
+}
+.buttons :nth-child(4n) {
+    background-color: rgb(83, 83, 83);
+}
+.button-class {
+    display:grid;
+    grid-template-rows: 0.5fr 0.5fr 0.5fr;
+}
+.button-class:hover {
+    background: rgb(109, 109, 109);
+}
+.numbers {
+    font-size: 2em;
+    padding: 0.5em;
+    text-align: right;
+}
+.outcome {
+    font-size: 1.5em;
+    padding: 0.5em;
+    text-align: right;
+}
+.madeby {
+    height: 50px;
+}
+@media screen and (max-width: 480px) {
+    .container {
+        grid-template-columns: 1fr 6fr 1fr;
+    }
+}
+@media (max-width: 900px) and (min-width: 480px) {
+    .container {
+        grid-template-columns: 1fr 3fr 1fr;
+    }
+}
+@media (max-width: 1024px) and (min-width: 900px) {
+    .container {
+        grid-template-columns: 1fr 2fr 1fr;
+    }
+}
+@media (max-width: 1920px) and (min-width: 1025px) {
+    .container {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+}
+@media screen and (min-width: 1920px) {
+    .container {
+        grid-template-columns: 2fr 1fr 2fr;
+    }
+}
+
