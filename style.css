@@ -18,11 +18,15 @@ body {
     color: black;
     display: grid;
     grid-template-columns: 1;
-    grid-template-rows: 3;
+    grid-template-rows: 4;
     background: white;
 }
 .button-inside {
     grid-row-start: 2;
+}
+.workwith {
+    padding-right: 1em;
+    text-align: right;
 }
 .mode {
     padding: 0.5em;
