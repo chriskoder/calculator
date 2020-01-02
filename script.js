@@ -14,6 +14,7 @@ const OPERATION_SELECTORS = {
     btnMultiply: document.querySelector('.multiply')
 }
 const DISPLAY_SELECTORS = {
+    dispPrevious: document.querySelector('.workwith'),
     dispCurrent: document.querySelector('.numbers'),
     dispOutcome: document.querySelector('.outcome')
 }
@@ -55,11 +56,53 @@ let init = (function () {
             }
         }
     }
-    OPERATION_SELECTORS.btnEqual.addEventListener('click', operate);
-    
+    OPERATION_SELECTORS.btnEqual.addEventListener('click', function() {
+        e = operate(currentOperator, numberOne, numberTwo);
+        DISPLAY_SELECTORS.dispOutcome.textContent = e;
+    });
+    OPERATION_SELECTORS.btnDelete.addEventListener('click', delOne);
 })();
+function delOne(cur) {
+    if(DISPLAY_SELECTORS.dispCurrent.textContent != '0') {
+        if(switched) {
+            if(numberTwo.length > 1) {
+                cur = numberTwo;
+                numberTwo = numberTwo.slice(0, -1);
+                update(numberTwo);
+            } else {
+                numberTwo = '';
+                update('0');
+            }
+        } else {
+            if(numberOne.length > 1) {
+                cur = numberOne;
+                numberOne = numberOne.slice(0, -1);
+                update(numberOne);
+            } else {
+                numberOne = '';
+                update('0');
+            }
+        }
+    }
+}
 function operate(op, a, b) {
-    console.log('should operate');
+    op = currentOperator;
+    a = parseFloat(numberOne);
+    b = parseFloat(numberTwo);
+    if (op === 'x') {
+        return a * b;
+    } else if (op === '/') {
+        return a / b;
+    } else if (op === '+') {
+        return a + b;
+    } else if (op === '-') {
+        return a - b;
+    } else if (op === 'rem') {
+        return a % b;
+    } else if (op === 'sqrt') {
+        return Math.sqrt(a);
+    }
+    
 }
 function update(x) {
     DISPLAY_SELECTORS.dispCurrent.textContent = x;
@@ -69,13 +112,59 @@ function clear() {
     numberTwo = '';
     DISPLAY_SELECTORS.dispCurrent.textContent = '0';
     DISPLAY_SELECTORS.dispOutcome.textContent = '0';
+    DISPLAY_SELECTORS.dispPrevious.textContent = '0';
     switched = false;
 }
 function checkButtonPress(trg) {
     if(trg.getAttribute('data-value') === 'clear') {
         clear();
     } else if(trg.getAttribute('data-value') === 'multiply') {
-        str = numberOne;
-        switched = true;
+        if(!switched) {
+            currentOperator = 'x'
+            str = numberOne;
+            switched = true;
+            DISPLAY_SELECTORS.dispPrevious.textContent = numberOne + currentOperator;
+            DISPLAY_SELECTORS.dispCurrent.textContent = '0';
+        }
+    } else if(trg.getAttribute('data-value') === 'divide') {
+        if(!switched) {
+            currentOperator = '/';
+            str = numberOne;
+            switched = true;
+            DISPLAY_SELECTORS.dispPrevious.textContent = numberOne + '÷';
+            DISPLAY_SELECTORS.dispCurrent.textContent = '0';
+        }
+    } else if(trg.getAttribute('data-value') === 'add') {
+        if(!switched) {
+            currentOperator = '+';
+            str = numberOne;
+            switched = true;
+            DISPLAY_SELECTORS.dispPrevious.textContent = numberOne + currentOperator;
+            DISPLAY_SELECTORS.dispCurrent.textContent = '0';
+        }
+    } else if(trg.getAttribute('data-value') === 'substract') {
+        if(!switched) {
+            currentOperator = '-';
+            str = numberOne;
+            switched = true;
+            DISPLAY_SELECTORS.dispPrevious.textContent = numberOne + currentOperator;
+            DISPLAY_SELECTORS.dispCurrent.textContent = '0';
+        }
+    } else if(trg.getAttribute('data-value') === 'rem') {
+        if(!switched) {
+            currentOperator = '%';
+            str = numberOne;
+            switched = true;
+            DISPLAY_SELECTORS.dispPrevious.textContent = numberOne + currentOperator;
+            DISPLAY_SELECTORS.dispCurrent.textContent = '0';
+        }
+    } else if(trg.getAttribute('data-value') === 'sqrt') {
+        if(!switched) {
+            currentOperator = 'sqrt';
+            switched = true;
+            str = numberOne;
+            DISPLAY_SELECTORS.dispPrevious.textContent = '√' + numberOne;
+            DISPLAY_SELECTORS.dispCurrent.textContent = '√' + numberOne + ' =';
+        }
     }
 }
