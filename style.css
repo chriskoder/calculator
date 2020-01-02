@@ -41,8 +41,11 @@ body {
 .buttons :nth-child(4n) {
     background-color: rgb(83, 83, 83);
 }
+.first {
+    background: rgb(65, 64, 64);
+}
 .button-class {
-    display:grid;
+    display: grid;
     grid-template-rows: 0.5fr 0.5fr 0.5fr;
 }
 .button-class:hover {
