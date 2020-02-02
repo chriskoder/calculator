@@ -69,8 +69,10 @@ let init = (function () {
         }
     }
     OPERATION_SELECTORS.btnEqual.addEventListener('click', function() {
+        switched = false;
         if (numberTwo != '') {
             e = operate(currentOperator, numberOne, numberTwo);
+            console.log(isNaN(e));
             if (!isNaN(e)) {
                 if(isFinite(e)) {
                     DISPLAY_SELECTORS.dispOutcome.textContent = e;
@@ -93,11 +95,19 @@ let init = (function () {
         } else {
             if(currentOperator === '√') {
                 e = operate(currentOperator, numberOne, numberTwo);
-                DISPLAY_SELECTORS.dispOutcome.textContent = e;
+                if(!isNaN(e)) {
+                    DISPLAY_SELECTORS.dispOutcome.textContent = e;
                     numberOne = e;
                     numberTwo = '';
                     currentOperator = '';
                     done++;
+                } else {
+                    DISPLAY_SELECTORS.dispOutcome.textContent = 'Math error';
+                    numberOne = '0';
+                    numberTwo = '';
+                    currentOperator = '';
+                    done++;
+                }
             }
         }
     });
@@ -151,7 +161,7 @@ function update(x) {
 }
 function clear() {
     switched = false;
-    numberOne = 0;
+    numberOne = '';
     numberTwo = '';
     DISPLAY_SELECTORS.dispCurrent.textContent = '0';
     DISPLAY_SELECTORS.dispOutcome.textContent = '0';
@@ -159,44 +169,46 @@ function clear() {
 }
 function checkButtonPress(trg) {
     if (numberOne != '') {
-        if(trg.getAttribute('data-value') === 'clear') {
+        if(!switched) {
+            if(trg.getAttribute('data-value') === 'clear') {
                 clear();
-        } else if(trg.getAttribute('data-value') === 'multiply') {
-            currentOperator = 'x';
-            str = numberOne;
-            switched = true;
-            DISPLAY_SELECTORS.dispPrevious.textContent = numberOne + currentOperator;
-            DISPLAY_SELECTORS.dispCurrent.textContent = '0';
-        } else if(trg.getAttribute('data-value') === 'divide') {
-            currentOperator = '÷';
-            str = numberOne;
-            switched = true;
-            DISPLAY_SELECTORS.dispPrevious.textContent = numberOne + '÷';
-            DISPLAY_SELECTORS.dispCurrent.textContent = '0';
-        } else if(trg.getAttribute('data-value') === 'add') {
-            currentOperator = '+';
-            str = numberOne;
-            switched = true;
-            DISPLAY_SELECTORS.dispPrevious.textContent = numberOne + currentOperator;
-            DISPLAY_SELECTORS.dispCurrent.textContent = '0';
-        } else if(trg.getAttribute('data-value') === 'substract') {
-            currentOperator = '-';
-            str = numberOne;
-            switched = true;
-            DISPLAY_SELECTORS.dispPrevious.textContent = numberOne + currentOperator;
-            DISPLAY_SELECTORS.dispCurrent.textContent = '0';
-        } else if(trg.getAttribute('data-value') === 'rem') {
-            currentOperator = '%';
-            str = numberOne;
-            switched = true;
-            DISPLAY_SELECTORS.dispPrevious.textContent = numberOne + currentOperator;
-            DISPLAY_SELECTORS.dispCurrent.textContent = '0';
-        } else if(trg.getAttribute('data-value') === 'sqrt') {
-            currentOperator = '√';
-            switched = true;
-            str = numberOne;
-            DISPLAY_SELECTORS.dispPrevious.textContent = '√' + numberOne;
-            DISPLAY_SELECTORS.dispCurrent.textContent = '√' + numberOne;
+            } else if(trg.getAttribute('data-value') === 'multiply') {
+                currentOperator = 'x';
+                str = numberOne;
+                switched = true;
+                DISPLAY_SELECTORS.dispPrevious.textContent = numberOne + currentOperator;
+                DISPLAY_SELECTORS.dispCurrent.textContent = '0';
+            } else if(trg.getAttribute('data-value') === 'divide') {
+                currentOperator = '÷';
+                str = numberOne;
+                switched = true;
+                DISPLAY_SELECTORS.dispPrevious.textContent = numberOne + '÷';
+                DISPLAY_SELECTORS.dispCurrent.textContent = '0';
+            } else if(trg.getAttribute('data-value') === 'add') {
+                currentOperator = '+';
+                str = numberOne;
+                switched = true;
+                DISPLAY_SELECTORS.dispPrevious.textContent = numberOne + currentOperator;
+                DISPLAY_SELECTORS.dispCurrent.textContent = '0';
+            } else if(trg.getAttribute('data-value') === 'substract') {
+                currentOperator = '-';
+                str = numberOne;
+                switched = true;
+                DISPLAY_SELECTORS.dispPrevious.textContent = numberOne + currentOperator;
+                DISPLAY_SELECTORS.dispCurrent.textContent = '0';
+            } else if(trg.getAttribute('data-value') === 'rem') {
+                currentOperator = '%';
+                str = numberOne;
+                switched = true;
+                DISPLAY_SELECTORS.dispPrevious.textContent = numberOne + currentOperator;
+                DISPLAY_SELECTORS.dispCurrent.textContent = '0';
+            } else if(trg.getAttribute('data-value') === 'sqrt') {
+                currentOperator = '√';
+                switched = true;
+                str = numberOne;
+                DISPLAY_SELECTORS.dispPrevious.textContent = '√' + numberOne;
+                DISPLAY_SELECTORS.dispCurrent.textContent = '√' + numberOne;
+            }
         }
     }
 }
