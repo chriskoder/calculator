@@ -130,8 +130,9 @@ function delOne(cur) {
                     cur = numberOne;
                     numberOne = numberOne.slice(0, -1);
                     update(numberOne);
+                    DISPLAY_SELECTORS.dispPrevious.textContent = '0';
                 } else {
-                    numberOne = '';
+                    numberOne = '0';
                     update('0');
                 }
             }
@@ -161,7 +162,7 @@ function update(x) {
 }
 function clear() {
     switched = false;
-    numberOne = '';
+    numberOne = '0';
     numberTwo = '';
     DISPLAY_SELECTORS.dispCurrent.textContent = '0';
     DISPLAY_SELECTORS.dispOutcome.textContent = '0';
